@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.user-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+.user-card {
+  flex: 1;
+  max-width: 450px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+  .user-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .user-card {
+    width: 100%;
+    max-width: 450px;
+  }
+}

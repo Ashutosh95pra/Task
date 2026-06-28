@@ -183,7 +183,7 @@
   }
 } */
 
-.task-card {
+/* .task-card {
   background: #fff;
   border-radius: 16px;
   padding: 20px;
@@ -271,4 +271,12 @@
 
 .delete-btn:hover {
   background: #dc2626;
+} */
+
+body {
+  margin: 0;
+}
+
+#root {
+  padding-top: 70px;
 }

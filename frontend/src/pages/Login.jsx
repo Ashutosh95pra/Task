@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,7 +22,8 @@ function Login() {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      return alert("Please fill all fields");
+      alert("Please fill all fields");
+      return;
     }
 
     try {
@@ -28,11 +32,14 @@ function Login() {
         formData
       );
 
-      alert("Login Successful");
-
+      // Save token
       localStorage.setItem("token", res.data.token);
 
-      console.log(res.data);
+      alert("Login Successful");
+
+      // Redirect to task page
+      navigate("/tasks");
+
     } catch (error) {
       alert(error.response?.data?.message || "Login Failed");
     }
@@ -49,6 +56,7 @@ function Login() {
           placeholder="Enter Email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
 
         <input
@@ -57,12 +65,14 @@ function Login() {
           placeholder="Enter Password"
           value={formData.password}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">Login</button>
 
         <p>
-          Don't have an account? <a href="/register">Register</a>
+          Don't have an account?{" "}
+          <Link to="/register">Register</Link>
         </p>
       </form>
     </div>

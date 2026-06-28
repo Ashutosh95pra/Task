@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -10,17 +18,29 @@ function Navbar() {
       </div>
 
       <ul className="navbar-links">
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
+        {!isLoggedIn ? (
+          <>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
 
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to="/tasks">Tasks</Link>
+            </li>
 
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
+            <li>
+              <Link to="/login" onClick={handleLogout}>
+                Logout
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

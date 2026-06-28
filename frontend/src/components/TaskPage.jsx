@@ -17,7 +17,7 @@ function TaskPage() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:3008/api/tasks",
+        " https://task-feca.onrender.com/api/tasks",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ function TaskPage() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:3008/api/tasks",
+        " https://task-feca.onrender.com/api/tasks",
         task,
         {
           headers: {
@@ -54,7 +54,7 @@ function TaskPage() {
   try {
     const token = localStorage.getItem("token");
 
-    await axios.delete(`http://localhost:3008/api/tasks/${id}`, {
+    await axios.delete(` https://task-feca.onrender.com/api/tasks/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -76,7 +76,7 @@ const handleUpdateTask = async (updatedTask) => {
     const token = localStorage.getItem("token");
 
     await axios.patch(
-      `http://localhost:3008/api/tasks/${editingTask._id}`,
+      ` https://task-feca.onrender.com/api/tasks/${editingTask._id}`,
       updatedTask,
       {
         headers: {

@@ -28,7 +28,7 @@ function Register() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3008/api/auth/register",
+        " https://task-feca.onrender.com/api/auth/register",
         formData
       );
 

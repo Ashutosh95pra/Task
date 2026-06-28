@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./TaskForm.css";
 
-function TaskForm({ onAddTask }) {
+function TaskForm({ onAddTask, onUpdateTask, editingTask }) {
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -9,6 +9,19 @@ function TaskForm({ onAddTask }) {
     priority: "Medium",
     dueDate: "",
   });
+  useEffect(() => {
+  if (editingTask) {
+    setTask({
+      title: editingTask.title,
+      description: editingTask.description,
+      status: editingTask.status,
+      priority: editingTask.priority,
+      dueDate: editingTask.dueDate
+        ? editingTask.dueDate.split("T")[0]
+        : "",
+    });
+  }
+}, [editingTask]);
 
   const handleChange = (e) => {
     setTask((prev) => ({
@@ -18,29 +31,30 @@ function TaskForm({ onAddTask }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!task.title || !task.dueDate) {
-      return alert("Please fill all required fields.");
-    }
+  if (!task.title || !task.dueDate) {
+    return alert("Please fill all required fields.");
+  }
 
-    if (onAddTask) {
-      onAddTask(task);
-    }
+  if (editingTask) {
+    onUpdateTask(task);
+  } else {
+    onAddTask(task);
+  }
 
-    setTask({
-      title: "",
-      description: "",
-      status: "Todo",
-      priority: "Medium",
-      dueDate: "",
-    });
-  };
-
+  setTask({
+    title: "",
+    description: "",
+    status: "Todo",
+    priority: "Medium",
+    dueDate: "",
+  });
+};
   return (
     <div className="task-form-container">
       <form className="task-form" onSubmit={handleSubmit}>
-        <h2>Add New Task</h2>
+        <h2>Add New Task : Update Task</h2>
 
         <input
           type="text"
@@ -87,7 +101,9 @@ function TaskForm({ onAddTask }) {
           onChange={handleChange}
         />
 
-        <button type="submit">Add Task</button>
+        <button type="submit">
+  {editingTask ? "Update Task" : "Add Task"}
+</button>
       </form>
     </div>
   );
